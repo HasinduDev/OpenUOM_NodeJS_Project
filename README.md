@@ -1,133 +1,97 @@
+# NodeJS Guided Project: Customer Registration API
 
+This project demonstrates the development of a NodeJS application that serves as a REST API for registering customers and storing their information in a SQLite database. The API also includes validation for email addresses and credit card numbers.
 
-# Prerequisites
+## Prerequisites
 
-For Windows
+- Node.js: Ensure you have Node.js installed on your machine.
+- SQLite: Make sure you have SQLite installed as the database engine.
 
-* Python 2.7 (for microsoft build tools)
-* Install Microsoft build tools (to build sqlite using node-gyp)
-  * Instructions here https://github.com/nodejs/node-gyp#on-windows
-  * Or install using npm (`npm install --global windows-build-tools`)
-* Node-gyp (`npm install --global node-gyp`)
+## Getting Started
 
-# Usage
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
 
-* Run `npm install` to installl dependencies
-* Run `npm run start` to start the local server
-* Load `http://localhost:8000` to test the endpoint. It will display a json result `{"message":"University of Moratuwa"}`
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-# API Endpoints
+3. Create the SQLite database:
+   ```bash
+   touch db.sqlite
+   ```
 
-## GET /api/products
+4. Initialize the database schema:
+   ```bash
+   node app.js
+   ```
 
-Get a list of products
+5. Start the server:
+   ```bash
+   node app.js
+   ```
 
+## Usage
+
+### Register a Customer
+
+**Endpoint:** POST `/api/customer/register`
+
+**Request Body:**
 ```json
 {
-    "message": "success",
-    "data": [
-        {
-            "id": 64,
-            "productName": "White Basmathi Rice",
-            "description": "Imported from Pakistan. Oragnically Grown",
-            "category": "Rice",
-            "brand": "CIC",
-            "expiredDate": "2022-09-01",
-            "manufacturedDate": "2021-12-13",
-            "batchNumber": "C-984367",
-            "unitPrice": 450,
-            "quantity": 500,
-            "createdDate": "Sun Mar 13 2022"
-        }
-    ]
+    "name": "John Doe",
+    "address": "123 Main St",
+    "email": "john@example.com",
+    "dateOfBirth": "1990-01-01",
+    "gender": "male",
+    "age": 30,
+    "cardHolderNames": "John Doe",
+    "cardNumber": "123456789012",
+    "expiryDate": "12/25",
+    "cvv": 123,
+    "timeStamp": "2023-08-21T12:00:00Z"
 }
 ```
 
-## GET /api/products/{id}
+**Response:**
+- If successful:
+  ```json
+  {
+      "message": "Customer John Doe has registered",
+      "customerId": "1"
+  }
+  ```
+- If validation fails (e.g., invalid email or credit card):
+  ```json
+  {
+      "error": "Invalid Email Address"
+  }
+  ```
 
-Get products information by product id
+### Root Path
 
+**Endpoint:** GET `/`
+
+**Response:**
 ```json
 {
-    "message": "success",
-    "data": {
-        "id": 64,
-        "productName": "White Basmathi Rice",
-        "description": "Imported from Pakistan. Oragnically Grown",
-        "category": "Rice",
-        "brand": "CIC",
-        "expiredDate": "2022-09-01",
-        "manufacturedDate": "2021-12-13",
-        "batchNumber": "C-984367",
-        "unitPrice": 450,
-        "quantity": 500,
-        "createdDate": "Sun Mar 13 2022"
-    }
+    "message": "University of Moratuwa"
 }
 ```
 
-## POST /api/products/
+## Contributing
 
-To create a new product based on POST data (x-www-form-url-encoded)
-```json
-{
-        "productName":"20000 Basmathi Rice",
-        "description":"White Basmathi Rice imported from Pakistan. High-quality rice with extra fragrance. Organically grown.",
-        "category":"Rice",
-        "brand":"CIC",
-        "expiredDate":"2023.05.04",
-        "manufacturedDate":"2022.02.20",
-        "batchNumber":324567,
-        "unitPrice":1020,
-        "quantity":200,
-        "createdDate":"2022.02.24"
-}
-````
+Contributions to this project are welcome! If you find any bugs or want to enhance the functionality, please submit an issue or a pull request.
 
+## License
 
-## PATCH /api/products/{id}
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-To update products data by id, based on POST data (x-www-form-url-encoded)
+---
 
-
-
-```json
-{
-        "productName":"20000 Basmathi Rice",
-        "description":"Red Basmathi Rice imported from Israel. High-quality rice with extra fragrance. Organically grown.",
-        "category":"Rice",
-        "brand":"CIC",
-        "expiredDate":"2023.05.04",
-        "manufacturedDate":"2022.02.20",
-        "batchNumber":324567,
-        "unitPrice":1020,
-        "quantity":200,
-        "createdDate":"2022.02.24"
-}
-```
-
-## DELETE /api/products/{id}
-
-To remove a products from the database by products id. 
-
-This example is using the `curl` command line
-
-
-```bash
-curl -X "DELETE" http://localhost:8000/api/products/2
-```
-
-The result is:
-
-`{"message":"deleted","rows":1}`
-
-
-
-
-
-
-
-
-
-
-
+*Note: This project was developed as part of the University of Moratuwa's guided project for NodeJS. It showcases the implementation of a customer registration API using Node.js and SQLite.*
